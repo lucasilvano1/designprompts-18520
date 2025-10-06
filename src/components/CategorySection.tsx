@@ -26,23 +26,11 @@ export const CategorySection: React.FC<CategorySectionProps> = ({ category }) =>
 
   // Get all prompts from this category
   const allPrompts = category.subcategories.flatMap(sub => sub.prompts);
-  
-  // Check if this is the web design category to show the custom Lovable card first
-  const isWebDesignCategory = category.slug === 'web-design';
-  
-  // Create a dummy prompt for the custom Lovable card
-  const lovableCustomPrompt = {
-    id: 'lovable-custom-card',
-    title: 'Lovable Remix Project',
-    text: 'Custom Lovable project showcase',
-    tags: ['lovable', 'remix']
-  };
 
-  if (allPrompts.length === 0 && !isWebDesignCategory) return null;
+  if (allPrompts.length === 0) return null;
 
   return (
     <div className="px-8 py-6 relative animate-fade-in">
-      {/* Section Header */}
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-3">
           <category.icon className="w-6 h-6 fill-primary text-primary" />
@@ -88,12 +76,6 @@ export const CategorySection: React.FC<CategorySectionProps> = ({ category }) =>
             msOverflowStyle: 'none',
           }}
         >
-          {/* Show custom Lovable card first for web design category */}
-          {isWebDesignCategory && (
-            <div key="lovable-custom" className="flex-shrink-0 w-80">
-              <PromptCard prompt={lovableCustomPrompt} isCustomLovableCard={true} />
-            </div>
-          )}
           {allPrompts.map((prompt) => (
             <div key={prompt.id} className="flex-shrink-0 w-80">
               <PromptCard prompt={prompt} />
